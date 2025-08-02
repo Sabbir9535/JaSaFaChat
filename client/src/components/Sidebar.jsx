@@ -10,7 +10,7 @@ const Sidebar = () => {
 
 const{logout, onlineUsers} = useContext(AuthContext);
 
-const [input,setInput] = useState(false);
+const [input,setInput] = useState("");
   const navigate = useNavigate();
 
 const filteredUser = input
@@ -71,9 +71,9 @@ const filteredUser = input
 
 }
             </div>
-            {unseenMessages?.[user?._id] > 0 && (
+           {(unseenMessages?.[user?._id] || 0) > 0 && (
   <p className='absolute top-4 right-4 text-xs h-5 w-5 flex justify-center items-center rounded-full bg-violet-500/50'>
-    {unseenMessages[user._id]}
+    {unseenMessages?.[user._id] || 0}
   </p>
 )}
           </div>

@@ -17,11 +17,10 @@ export const ChatProvider =({children})=>{
      const getUsers = async()=>{
         try {
           const {data} =  await axios.get("/api/messages/users");
-            if(data.success){
-                setUsers(data.users)
-                setUnseenMessage(data.unseenMessages)
-
-            }
+         if(data.success){
+            setUsers(data.users)
+            setUnseenMessage(data.unseenMessages)
+          }
         } catch (error) {
             toast.error(error.message)
         }

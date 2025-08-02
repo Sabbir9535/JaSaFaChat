@@ -11,16 +11,17 @@ export const getUsersForSidebar = async (req,res)=>{
         const filterUsers = await User.find({_id:{$ne:userId}}).select("-password");
 
         //count for messages for not seen
-        const unseenMesssages ={}
-        const promises = filterUsers.map(async (user)=>{
-            const messages = await Message.find({senderId:user._id,receiverId:userId,seen:false})
-       
-            if(messages.length>0){
-                unseenMesssages[user._id] = messages.length;
-            }
-        })
-        await Promise.all(promises);
-        res.json({success:true, users:filterUsers,unseenMesssages})
+        
+       const unseenMessages = {}
+const promises = filterUsers.map(async (user)=>{
+    const messages = await Message.find({senderId:user._id,receiverId:userId,seen:false})
+    if(messages.length>0){
+        unseenMessages[user._id] = messages.length;
+    }
+})
+await Promise.all(promises);
+res.json({success:true, users:filterUsers, unseenMessages})
+
     } catch (error) {
         console.log(error.message);
         res.json({success:false, message:error.message});
